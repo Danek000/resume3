@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Резюме | Кокорев Данила Олегович</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --container-bg: #ffffff;
+            --text-color: #2c3e50;
+            --text-muted: #606f7b;
+            --primary-color: #2b6cb0;
+            --primary-hover: #2c5282;
+            --accent-color: #319795;
+            --border-color: #e2e8f0;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --transition-speed: 0.3s;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1a202c;
+            --container-bg: #2d3748;
+            --text-color: #f7fafc;
+            --text-muted: #a0aec0;
+            --primary-color: #63b3ed;
+            --primary-hover: #4299e1;
+            --accent-color: #4fd1c5;
+            --border-color: #4a5568;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        /* Header / Navbar */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--container-bg);
+            box-shadow: var(--card-shadow);
+            z-index: 1000;
+            transition: background-color var(--transition-speed);
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .theme-toggle-btn {
+            background: none;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all var(--transition-speed);
+        }
+
+        .theme-toggle-btn:hover {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        .view-counter {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            background: var(--border-color);
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+
+        /* Main Layout Container */
+        .main-container {
+            max-width: 1100px;
+            margin: 100px auto 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        /* Sections common styling */
+        section {
+            background-color: var(--container-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            transition: background-color var(--transition-speed), transform 0.6s ease-out, opacity 0.6s ease-out;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            border-left: 5px solid var(--accent-color);
+            padding-left: 15px;
+            font-size: 1.5rem;
+        }
+
+        /* Profile Block */
+        .profile-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 20px;
+        }
+
+        @media(min-width: 768px) {
+            .profile-section {
+                flex-direction: row;
+                text-align: left;
+                align-items: flex-start;
+            }
+        }
+
+        .profile-img-container {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--primary-color);
+            flex-shrink: 0;
+            box-shadow: var(--card-shadow);
+            background-color: #ddd;
+        }
+
+        .profile-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-info {
+            flex-grow: 1;
+        }
+
+        .profile-info h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        .student-meta {
+            font-size: 1.1rem;
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .meta-details {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        @media(min-width: 480px) {
+            .meta-details {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .meta-item {
+            font-size: 0.95rem;
+        }
+
+        .meta-item strong {
+            color: var(--primary-color);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color var(--transition-speed), transform 0.2s;
+            border: none;
+            font-size: 0.95rem;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        /* Skills block (Flexbox wrapping tags) */
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tag {
+            background-color: var(--border-color);
+            color: var(--text-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background-color var(--transition-speed);
+        }
+
+        .skill-tag:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Accordion for Work Experience (Sliding details) */
+        .accordion-item {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            background-color: var(--bg-color);
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            user-select: none;
+            transition: background-color var(--transition-speed);
+        }
+
+        .accordion-header:hover {
+            background-color: var(--border-color);
+        }
+
+        .accordion-icon {
+            transition: transform var(--transition-speed);
+            font-weight: bold;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height var(--transition-speed) ease-out, padding var(--transition-speed) ease-out;
+            padding: 0 20px;
+            background-color: var(--container-bg);
+        }
+
+        .accordion-item.active .accordion-content {
+            padding: 15px 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Education Table */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.95rem;
+        }
+
+        th {
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        /* Dropdown/Collapsible Lists for Projects and Certificates */
+        .collapsible-trigger {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            width: 100%;
+            text-align: left;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color var(--transition-speed);
+        }
+
+        .collapsible-trigger:hover {
+            background-color: var(--border-color);
+        }
+
+        .collapsible-content {
+            display: none;
+            padding: 10px 15px 20px 15px;
+        }
+
+        .collapsible-content ul {
+            list-style-type: none;
+        }
+
+        .collapsible-content li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .collapsible-content li::before {
+            content: "•";
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+
+        /* Contact Form Validation Styling */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background-color: var(--container-bg);
+            color: var(--text-color);
+            font-size: 0.95rem;
+            transition: border-color var(--transition-speed);
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .error-message {
+            color: #e53e3e;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .form-group.invalid input, .form-group.invalid textarea {
+            border-color: #e53e3e;
+        }
+
+        .form-group.invalid .error-message {
+            display: block;
+        }
+
+        .success-banner {
+            background-color: #c6f6d5;
+            color: #22543d;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">Резюме студента</div>
+            <div class="nav-controls">
+                <div class="view-counter">Просмотры: <span id="counter-value">0</span></div>
+                <button class="theme-toggle-btn" id="theme-toggle" aria-label="Переключить тему">Тёмная тема</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-container">
+
+        <!-- О себе / Главный блок -->
+        <section id="about">
+            <div class="profile-section">
+                <div class="profile-img-container">
+                    <!-- Фото в соответствии с требованиями -->
+                    <img src="myphoto.jpg" alt="Кокорев Данила Олегович" onerror="this.src='https://via.placeholder.com/180?text=%D0%A4%D0%BE%D1%82%D0%BE';">
+                </div>
+                <div class="profile-info">
+                    <h1>Кокорев Данила Олегович</h1>
+                    <div class="student-meta">Студент МГТУ "СТАНКИН"</div>
+                    
+                    <div class="meta-details">
+                        <div class="meta-item"><strong>Курс:</strong> 3 курс</div>
+                        <div class="meta-item"><strong>Группа:</strong> АДБ-23-07</div>
+                        <div class="meta-item" style="grid-column: span 2;">
+                            <strong>Специальность:</strong> Автоматизация технологических процессов и производств
+                        </div>
+                    </div>
+
+                    <p>
+                        Я целеустремленный студент третьего курса, активно интересующийся современными подходами к автоматизации производства, программированием промышленных контроллеров и созданием эффективных интерфейсов управления. Обладаю базовыми аналитическими навыками, быстро осваиваю новые технологии и готов развиваться в сфере инженерных решений и разработки программного обеспечения.
+                    </p>
+
+                    <div class="btn-group">
+                        <a href="#contact" class="btn btn-primary">Связаться</a>
+                        <button class="btn btn-secondary" onclick="alert('Скачивание резюме начнется автоматически (заглушка).')">Скачать резюме</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Навыки -->
+        <section id="skills">
+            <h2>Навыки</h2>
+            <div class="skills-grid">
+                <div class="skill-tag">HTML5 / CSS3 / JavaScript (ES6)</div>
+                <div class="skill-tag">Адаптивная верстка (Flexbox, Grid)</div>
+                <div class="skill-tag">Основы промышленной автоматизации</div>
+                <div class="skill-tag">Программирование ПЛК / SCADA</div>
+                <div class="skill-tag">Git / GitHub</div>
+                <div class="skill-tag">Python (Data Science basics)</div>
+                <div class="skill-tag">C++ (Базовый уровень)</div>
+                <div class="skill-tag">Английский язык (B1)</div>
+            </div>
+        </section>
+
+        <!-- Опыт работы (Аккордеон) -->
+        <section id="experience">
+            <h2>Опыт работы</h2>
+            
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>Стажировка: МГТУ "СТАНКИН" (Кафедра автоматизации) — 2025</span>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <p><strong>Обязанности и достижения:</strong></p>
+                    <p>Участие в проектировании и пусконаладке макетов автоматизированных производственных ячеек. Настройка датчиков обратной связи и базовое конфигурирование логических контроллеров. Работа со технической документацией и схемами автоматизации.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header">
+                    <span>Фриланс: Веб-разработка и автоматизация скриптов — 2024 - н.в.</span>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="accordion-content">
+                    <p><strong>Обязанности и достижения:</strong></p>
+                    <p>Разработка адаптивных лендингов для малого бизнеса с использованием чистого HTML, CSS и JavaScript. Написание автоматизирующих скриптов на Python для парсинга данных и обработки отчетов. Взаимодействие с заказчиками напрямую, сбор требований.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Образование (Таблица) -->
+        <section id="education">
+            <h2>Образование</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Период</th>
+                            <th>Учебное заведение</th>
+                            <th>Специальность / Квалификация</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2023 - 2027</td>
+                            <td>МГТУ "СТАНКИН"</td>
+                            <td>Автоматизация технологических процессов и производств (Бакалавриат)</td>
+                        </tr>
+                        <tr>
+                            <td>2012 - 2023</td>
+                            <td>Средняя общеобразовательная школа</td>
+                            <td>Среднее общее образование (Технологический профиль)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Раскрывающийся списки (Проекты и Сертификаты) -->
+        <section id="additional">
+            <h2>Дополнительно</h2>
+            
+            <!-- Свертываемый список проектов -->
+            <div>
+                <button class="collapsible-trigger">
+                    <span>Мои проекты</span>
+                    <span>▼</span>
+                </button>
+                <div class="collapsible-content">
+                    <ul>
+                        <li><strong>Разработка макета умного склада:</strong> Проектирование алгоритма сортировки грузов с использованием датчиков цвета и программируемого реле.</li>
+                        <li><strong>Портфолио-вебсайт:</strong> Создание адаптивной личной страницы на чистом CSS/JS с переключателем тем оформления (текущий проект).</li>
+                        <li><strong>Telegram-бот для автоматизации расписания:</strong> Разработка бота на Python, помогающего студентам группы АДБ-23-07 отслеживать изменения учебного плана.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Свертываемый список сертификатов -->
+            <div style="margin-top: 15px;">
+                <button class="collapsible-trigger">
+                    <span>Сертификаты и курсы</span>
+                    <span>▼</span>
+                </button>
+                <div class="collapsible-content">
+                    <ul>
+                        <li>Онлайн-курс "Основы промышленной автоматизации и SCADA-систем" (2025)</li>
+                        <li>Сертификат по прохождению курса "JavaScript: Полное руководство для веб-разработчиков" (2024)</li>
+                        <li>Участник студенческой научно-практической конференции МГТУ "СТАНКИН" (2025)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Форма обратной связи -->
+        <section id="contact">
+            <h2>Связаться со мной</h2>
+            <div class="success-banner" id="form-success">Сообщение успешно отправлено! Я свяжусь с вами в ближайшее время.</div>
+            
+            <form id="feedback-form" novalidate>
+                <div class="form-group" id="group-name">
+                    <label for="name">Ваше имя *</label>
+                    <input type="text" id="name" placeholder="Введите имя">
+                    <div class="error-message">Пожалуйста, введите ваше имя (не менее 2 символов).</div>
+                </div>
+
+                <div class="form-group" id="group-email">
+                    <label for="email">Электронная почта *</label>
+                    <input type="email" id="email" placeholder="example@mail.com">
+                    <div class="error-message">Введите корректный адрес электронной почты.</div>
+                </div>
+
+                <div class="form-group" id="group-message">
+                    <label for="message">Сообщение *</label>
+                    <textarea id="message" rows="5" placeholder="Напишите текст сообщения..."></textarea>
+                    <div class="error-message">Текст сообщения должен содержать как минимум 10 символов.</div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Отправить сообщение</button>
+            </form>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Кокорев Данила Олегович. Все права защищены.</p>
+    </footer>
+
+    <!-- JavaScript логика -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Счётчик просмотров на localStorage
+            let pageViews = localStorage.getItem('page_views');
+            if (pageViews) {
+                pageViews = parseInt(pageViews) + 1;
+            } else {
+                pageViews = 1;
+            }
+            localStorage.setItem('page_views', pageViews);
+            document.getElementById('counter-value').textContent = pageViews;
+
+            // 2. Переключатель тёмной темы
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeToggleBtn.textContent = 'Светлая тема';
+            }
+
+            themeToggleBtn.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                if (currentTheme === 'dark') {
+                    document.documentElement.removeAttribute('data-theme');
+                    localStorage.setItem('theme', 'light');
+                    themeToggleBtn.textContent = 'Тёмная тема';
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                    themeToggleBtn.textContent = 'Светлая тема';
+                }
+            });
+
+            // 3. Выезжающие описания опыта (Аккордеон)
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const item = header.parentElement;
+                    const content = header.nextElementSibling;
+                    
+                    if (item.classList.contains('active')) {
+                        content.style.maxHeight = null;
+                        item.classList.remove('active');
+                    } else {
+                        // Опционально: закрыть остальные открытые вкладки аккордеона
+                        document.querySelectorAll('.accordion-item').forEach(el => {
+                            el.classList.remove('active');
+                            el.querySelector('.accordion-content').style.maxHeight = null;
+                        });
+                        
+                        item.classList.add('active');
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    }
+                });
+            });
+
+            // 4. Раскрывающиеся списки (Проекты и сертификаты)
+            const collapsibleTriggers = document.querySelectorAll('.collapsible-trigger');
+            collapsibleTriggers.forEach(trigger => {
+                trigger.addEventListener('click', () => {
+                    const content = trigger.nextElementSibling;
+                    const arrow = trigger.querySelector('span:last-child');
+                    
+                    if (content.style.display === 'block') {
+                        content.style.display = 'none';
+                        arrow.textContent = '▼';
+                    } else {
+                        content.style.display = 'block';
+                        arrow.textContent = '▲';
+                    }
+                });
+            });
+
+            // 5. Валидация формы обратной связи
+            const form = document.getElementById('feedback-form');
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const messageInput = document.getElementById('message');
+            const successBanner = document.getElementById('form-success');
+
+            const validateEmail = (email) => {
+                const re = /^(([^<>()\[\]\.,;:\s@"]+(\.[^<>()\[\]\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return re.test(String(email).toLowerCase());
+            };
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                let isValid = true;
+
+                // Валидация имени
+                if (nameInput.value.trim().length < 2) {
+                    document.getElementById('group-name').classList.add('invalid');
+                    isValid = false;
+                } else {
+                    document.getElementById('group-name').classList.remove('invalid');
+                }
+
+                // Валидация почты
+                if (!validateEmail(emailInput.value.trim())) {
+                    document.getElementById('group-email').classList.add('invalid');
+                    isValid = false;
+                } else {
+                    document.getElementById('group-email').classList.remove('invalid');
+                }
+
+                // Валидация сообщения
+                if (messageInput.value.trim().length < 10) {
+                    document.getElementById('group-message').classList.add('invalid');
+                    isValid = false;
+                } else {
+                    document.getElementById('group-message').classList.remove('invalid');
+                }
+
+                if (isValid) {
+                    // Успешная отправка имитации
+                    successBanner.style.display = 'block';
+                    form.reset();
+                    
+                    // Скрываем баннер через 5 секунд
+                    setTimeout(() => {
+                        successBanner.style.display = 'none';
+                    }, 5000);
+                }
+            });
+
+            // Очистка ошибок при вводе
+            [nameInput, emailInput, messageInput].forEach(input => {
+                input.addEventListener('input', () => {
+                    input.parentElement.classList.remove('invalid');
+                });
+            });
+
+            // 6. Плавные анимации появления секций при скролле (Intersection Observer)
+            const sections = document.querySelectorAll('section');
+            const observerOptions = {
+                root: null,
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const sectionObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target); // Показываем один раз
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
